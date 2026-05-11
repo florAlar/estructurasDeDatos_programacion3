@@ -18,16 +18,12 @@ public abstract class CsvLoader<T> {
 
             try {
 
-                InputStream is =
-                        getClass().getResourceAsStream(archivo);
+                InputStream is = getClass().getResourceAsStream(archivo);
 
-                BufferedReader br =
-                        new BufferedReader(
-                                new InputStreamReader(is));
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
                 String linea;
 
-                // primera línea = cantidad total
                 br.readLine();
 
                 while ((linea = br.readLine()) != null) {
