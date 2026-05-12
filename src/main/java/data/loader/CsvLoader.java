@@ -5,31 +5,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public abstract class CsvLoader<T> {
 
 
-
-        public ArrayList<T> cargar(String archivo) {
+        public ArrayList<T> cargarDatos(String nombreArchivo) {
 
             ArrayList<T> elementos = new ArrayList<>();
 
             try {
-
-                InputStream is = getClass().getResourceAsStream(archivo);
-
+                InputStream is = getClass().getResourceAsStream(nombreArchivo);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+                if (is == null) { throw new RuntimeException("no se encontro el archivo " + nombreArchivo);}
 
                 String linea;
 
                 br.readLine();
 
                 while ((linea = br.readLine()) != null) {
-
                     T elemento = parsearLinea(linea);
-
                     elementos.add(elemento);
                 }
 
@@ -38,7 +35,6 @@ public abstract class CsvLoader<T> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return elementos;
         }
 

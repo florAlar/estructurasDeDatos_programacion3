@@ -1,6 +1,6 @@
 package model;
 
-public class Paquete {
+public class Paquete implements Comparable<Paquete> {
 
     private Integer id_paquete;
     private String codigo_paquete;
@@ -56,5 +56,21 @@ public class Paquete {
         this.nivel_urgencia = nivel_urgencia;
     }
 
+    @Override
+    public int compareTo(Paquete otro) {
 
+        // Mayor urgencia primero
+        return Integer.compare(otro.nivel_urgencia, this.nivel_urgencia);
+    }
+
+    @Override
+    public String toString() {
+        return "Paquete{" +
+                "id_paquete=" + id_paquete +
+                ", codigo_paquete='" + codigo_paquete + '\'' +
+                ", peso_kg=" + peso_kg +
+                ", contiene_alimentos=" + contiene_alimentos +
+                ", nivel_urgencia=" + nivel_urgencia +
+                '}';
+    }
 }
