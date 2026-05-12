@@ -17,12 +17,15 @@ public class PaquetesRepository implements Repository<Paquete,String> {
 
         this.paquetes = paquetes;
 
-        // O(n) una sola vez al inicializar, luego la lectura la hago por O(1),sacrifico memoria fisica pero si tuviera que recorrer array paquetes cada vez que me piden un camion con id, seria O(n);
+        // O(n) una sola vez al inicializar, luego la lectura la hago por O(1),
+        // sacrifico memoria fisica pero si tuviera que recorrer array paquetes cada vez que me piden un camion con id, seria O(n);
         paquetesPorCodigo = new HashMap<>();
 
         for (Paquete paquete : paquetes) {
             paquetesPorCodigo.put(paquete.getCodigo_Paquete(), paquete);
         }
+
+        System.out.println(paquetes.size() + " paquetes cargados en repositorio: Complejidad Asociada O(n)" );
     }
 
     @Override
@@ -60,5 +63,7 @@ public class PaquetesRepository implements Repository<Paquete,String> {
             System.out.println(paquete);
         }
     }
+
+
 
 }

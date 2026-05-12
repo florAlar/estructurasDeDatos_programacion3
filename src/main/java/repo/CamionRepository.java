@@ -29,6 +29,7 @@ public class CamionRepository implements Repository<Camion,Integer> {
         for (Camion camion : camiones) {
             camionesPorId.put(camion.getID(), camion);
         }
+        System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n)" );
     }
 
     @Override

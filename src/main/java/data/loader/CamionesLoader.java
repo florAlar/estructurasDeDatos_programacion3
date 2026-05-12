@@ -30,6 +30,4 @@ public class CamionesLoader extends CsvLoader<Camion> {
         ArrayList<Camion> camiones = new ArrayList<>(super.cargarDatos(this.ruta));
         return new CamionRepository(camiones);
     }
-
-
 }
