@@ -6,13 +6,9 @@ import java.util.ArrayList;
 
 public class CamionesLoader extends CsvLoader<Camion> {
 
-    private String ruta ;
+    private String ruta;
 
     public CamionesLoader(String ruta) {
-       setRuta(ruta);
-    }
-
-    public void setRuta(String ruta) {
         this.ruta = ruta;
     }
 

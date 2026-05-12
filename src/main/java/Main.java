@@ -9,13 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CamionesLoader camionesLoader = new CamionesLoader("camiones.csv");
-        PaquetesLoader paquetesLoader = new PaquetesLoader("paquetes.csv");
 
-        CamionRepository camionRepo = camionesLoader.almacenarEnRepo();
-        PaquetesRepository paquetesRepo = paquetesLoader.almacenarEnRepo();
-
-        camionRepo.imprimirCamiones();
-        paquetesRepo.imprimirPaquetes();
     }
 }

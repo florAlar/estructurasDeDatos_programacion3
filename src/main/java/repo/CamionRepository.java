@@ -32,17 +32,18 @@ public class CamionRepository implements Repository<Camion,Integer> {
     }
 
     @Override
-    public Camion buscarPorId(Integer id) {
+    public Camion buscarPorIdentificador(Integer id) {
         return camionesPorId.get(id);
     }
 
     @Override
     public boolean existe(Integer id) {
-        return this.buscarPorId(id) != null;
+        return this.buscarPorIdentificador(id) != null;
     }
 
     @Override
     public ArrayList<Camion> obtenerTodos() {
+        //siempre O(n) para no romper encapsulamiento; si expongo el array original es O(1);
         return new ArrayList<>(camiones);
     }
 
@@ -51,14 +52,9 @@ public class CamionRepository implements Repository<Camion,Integer> {
         return camiones.size();
     }
 
-    @Override
-    public boolean estaVacio() {
-        return this.cantidad() == 0;
-    }
-
     public void imprimirCamiones() {
 
-        if (camiones == null ||  this.estaVacio()) {
+        if (camiones == null ||  camiones.isEmpty()) {
             System.out.println("No hay camiones cargados.");
             return;
         }

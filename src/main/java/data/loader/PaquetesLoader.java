@@ -10,12 +10,9 @@ public class PaquetesLoader extends CsvLoader<Paquete> {
     private String ruta ;
 
     public PaquetesLoader(String ruta) {
-        setRuta(ruta);
-    }
-
-    public void setRuta(String ruta) {
         this.ruta = ruta;
     }
+
 
     @Override
     protected Paquete parsearLinea(String linea) {

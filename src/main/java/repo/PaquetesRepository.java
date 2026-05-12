@@ -1,14 +1,13 @@
 package repo;
 
-import model.Camion;
 import model.Paquete;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PaquetesRepository implements Repository<Paquete,Integer> {
+public class PaquetesRepository implements Repository<Paquete,String> {
 
     private ArrayList<Paquete> paquetes;
-    private HashMap<Integer, Paquete> paquetesPorId;
+    private HashMap<String, Paquete> paquetesPorCodigo;
 
     public PaquetesRepository(ArrayList<Paquete> paquetes) {
         setPaquetes(paquetes);
@@ -19,25 +18,27 @@ public class PaquetesRepository implements Repository<Paquete,Integer> {
         this.paquetes = paquetes;
 
         // O(n) una sola vez al inicializar, luego la lectura la hago por O(1),sacrifico memoria fisica pero si tuviera que recorrer array paquetes cada vez que me piden un camion con id, seria O(n);
-        paquetesPorId = new HashMap<>();
+        paquetesPorCodigo = new HashMap<>();
 
         for (Paquete paquete : paquetes) {
-            paquetesPorId.put(paquete.getID(), paquete);
+            paquetesPorCodigo.put(paquete.getCodigo_Paquete(), paquete);
         }
     }
 
     @Override
-    public Paquete buscarPorId(Integer id) {
-        return paquetesPorId.get(id);
+    public Paquete buscarPorIdentificador(String codigo) {
+        return paquetesPorCodigo.get(codigo);
     }
 
     @Override
-    public boolean existe(Integer id) {
-        return paquetesPorId.get(id) != null;
+    public boolean existe(String codigo) {
+        return buscarPorIdentificador(codigo) != null;
     }
+
 
     @Override
     public ArrayList<Paquete> obtenerTodos() {
+        //siempre O(n) para no romper encapsulamiento; si expongo el array original es O(1);
         return new ArrayList<>(paquetes);
     }
 
@@ -46,14 +47,9 @@ public class PaquetesRepository implements Repository<Paquete,Integer> {
         return paquetes.size();
     }
 
-    @Override
-    public boolean estaVacio() {
-        return this.cantidad() == 0;
-    }
+     public void imprimirPaquetes() {
 
-    public void imprimirPaquetes() {
-
-        if (paquetes == null || this.estaVacio()) {
+        if (paquetes == null || paquetes.isEmpty()) {
             System.out.println("No hay paquetes.");
             return;
         }

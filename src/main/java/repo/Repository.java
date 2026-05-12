@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface Repository<T, K> {
 
-    T buscarPorId(K id);
+    T buscarPorIdentificador(K id);
 
     boolean existe(K id);
 
@@ -12,8 +12,6 @@ public interface Repository<T, K> {
 
     int cantidad();
 
-    boolean estaVacio();
-
-    //aqui irian eliminar e insertar uno nuevo pero dado que son archivos csv no se como lo haria;
+   //aqui irian eliminar e insertar uno nuevo pero dado que son archivos csv no se como lo haria;
 
 }
