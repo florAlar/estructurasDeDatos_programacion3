@@ -55,11 +55,11 @@ public class Camion implements Comparable<Camion> {
 
     @Override
     public String toString() {
-        return "Camion{" +
-                "id_camion=" + id_camion +
-                ", patente='" + patente + '\'' +
-                ", esta_refrigerado=" + esta_refrigerado +
-                ", capacidad_kg=" + capacidad_kg +
+        return "Camion " + id_camion + " { " +
+                "id_camion= " + id_camion +
+                ", patente=' " + patente + '\'' +
+                ", esta_refrigerado= " + esta_refrigerado +
+                ", capacidad_kg= " + capacidad_kg +
                 '}';
     }
 }

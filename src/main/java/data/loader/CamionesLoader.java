@@ -1,7 +1,20 @@
 package data.loader;
 import model.Camion;
+import repo.CamionRepository;
+
+import java.util.ArrayList;
 
 public class CamionesLoader extends CsvLoader<Camion> {
+
+    private String ruta ;
+
+    public CamionesLoader(String ruta) {
+       setRuta(ruta);
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
 
     @Override
     protected Camion parsearLinea(String linea) {
@@ -15,4 +28,12 @@ public class CamionesLoader extends CsvLoader<Camion> {
 
         return new Camion(id_camion, patente, esta_refrigerado, capacidad_kg);
     }
+
+    @Override
+    public CamionRepository almacenarEnRepo() {
+        ArrayList<Camion> camiones = new ArrayList<>(super.cargarDatos(this.ruta));
+        return new CamionRepository(camiones);
+    }
+
+
 }

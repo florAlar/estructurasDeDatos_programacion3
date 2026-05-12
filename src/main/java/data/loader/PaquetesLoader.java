@@ -1,8 +1,21 @@
 package data.loader;
 
 import model.Paquete;
+import repo.PaquetesRepository;
+
+import java.util.ArrayList;
 
 public class PaquetesLoader extends CsvLoader<Paquete> {
+
+    private String ruta ;
+
+    public PaquetesLoader(String ruta) {
+        setRuta(ruta);
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
 
     @Override
     protected Paquete parsearLinea(String linea) {
@@ -16,5 +29,11 @@ public class PaquetesLoader extends CsvLoader<Paquete> {
         int nivel_urgencia = Integer.parseInt(partes[4]);
 
         return new Paquete(id_paquete, codigo_paquete, peso_kg, contiene_alimentos, nivel_urgencia);
+    }
+
+    @Override
+    public PaquetesRepository almacenarEnRepo() {
+        ArrayList<Paquete> elementos = new ArrayList<>(super.cargarDatos(this.ruta));
+        return new PaquetesRepository(elementos);
     }
 }

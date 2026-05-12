@@ -1,6 +1,21 @@
+import data.loader.CamionesLoader;
+import data.loader.PaquetesLoader;
+import model.Camion;
+import repo.CamionRepository;
+import repo.PaquetesRepository;
+import repo.Repository;
 
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("smoke_test_Prog3");
+
+        CamionesLoader camionesLoader = new CamionesLoader("camiones.csv");
+        PaquetesLoader paquetesLoader = new PaquetesLoader("paquetes.csv");
+
+        CamionRepository camionRepo = camionesLoader.almacenarEnRepo();
+        PaquetesRepository paquetesRepo = paquetesLoader.almacenarEnRepo();
+
+        camionRepo.imprimirCamiones();
+        paquetesRepo.imprimirPaquetes();
     }
 }

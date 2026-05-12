@@ -65,12 +65,12 @@ public class Paquete implements Comparable<Paquete> {
 
     @Override
     public String toString() {
-        return "Paquete{" +
-                "id_paquete=" + id_paquete +
-                ", codigo_paquete='" + codigo_paquete + '\'' +
-                ", peso_kg=" + peso_kg +
-                ", contiene_alimentos=" + contiene_alimentos +
-                ", nivel_urgencia=" + nivel_urgencia +
+        return "Paquete " + id_paquete + " { " +
+                "id_paquete= " + id_paquete +
+                ", codigo_paquete= '" + codigo_paquete + '\'' +
+                ", peso_kg= " + peso_kg +
+                ", contiene_alimentos= " + contiene_alimentos +
+                ", nivel_urgencia= " + nivel_urgencia +
                 '}';
     }
 }
