@@ -7,55 +7,67 @@ import service.filters.ContieneAlimentos;
 
 import java.util.ArrayList;
 
-
 public class Service {
 
-    CamionService camionService;
-    PaqueteService paqueteService;
+    private CamionService camionService;
+    private PaqueteService paqueteService;
 
-     //La complejidad computacional asociada al constructor del servicio es de 2 * O(2.n) dado que inicializa dos servicios
-    // encargados de cada entidad a su evz cada servicio le pide los datos a un repositorio. La complejidad final siempre se mantiene lineal en o(n);
+    /*  Complejidad temporal: O(n)
+        El constructor inicializa ambos servicios.
+        Cada servicio carga los datos desde archivos CSV
+        y construye sus estructuras internas. */
 
     public Service(String pathCamiones, String pathPaquetes) {
+        System.out.println("------Servicios Creados------");
+
         this.camionService = new CamionService(pathCamiones);
         this.paqueteService = new PaqueteService(pathPaquetes);
+
+        System.out.println("-----------------------------");
+
     }
 
-    /* La complejidad de la busqueda por codigo de paquete es O(1) dado que en el repositorio de paquetes está almacenado como un hashmap */
+    /*  Complejidad temporal: O(1) promedio.
+        La búsqueda se realiza mediante HashMap utilizando el código del paquete como clave. */
 
     public Paquete servicio1(String codigoPaquete) {
-
-        Paquete paq = paqueteService.getPaquete(codigoPaquete);
-        return paq;
+        return paqueteService.getPaquete(codigoPaquete);
     }
 
-    /* La complejidad de la busqueda por condiciones utilizan el mismo metodo: "getPaquetesFiltrados()"
-    que busca los elementos que cumplen con la condicion dada en un arreglo haciendo que la Complejidad computacional del metodo sea O(n) */
+    /*  Complejidad temporal de busqueda en array: O(n).
+        Ambos servicios (2 y 3) utilizan el mismo recorrido secuencial de la colección
+        filtrando los paquetes que cumplan la condición solicitada. */
 
     public ArrayList<Paquete> servicio2(boolean contiene) {
-
-        ArrayList<Paquete> paquetes = paqueteService.getPaquetesFiltrados(new ContieneAlimentos(contiene));
-        return paquetes;
+        return paqueteService.getPaquetesFiltrados(new ContieneAlimentos(contiene));
     }
 
     public ArrayList<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
-
-        ArrayList<Paquete> paquetes = paqueteService.getPaquetesFiltrados(new CondicionUrgencia(urgenciaMinima, urgenciaMaxima));
-        return paquetes;
+        return paqueteService.getPaquetesFiltrados( new CondicionUrgencia(urgenciaMinima, urgenciaMaxima));
     }
 
-    public Solucion Servicio4(){
-        //devuelve solucion con backtracking
-        return null;
+    // Ejecuta la resolución utilizando Backtracking. sera O(un monton xD)
+
+    public Solucion servicio4() {
+
+        return camionService.resolverConBacktracking(paqueteService.getPaquetes());
     }
 
-    public Solucion Servicio5(){
-        // devuelve Solucion con Greedy
-        return null;
+    // Ejecuta la resolución utilizando Greedy. sera O(ni idea cuantos xD)
+
+    public Solucion servicio5() {
+
+        return camionService.resolverConGreedy(paqueteService.getPaquetes());
     }
 
-    public void Servicio6(){
-        //compara soluciones obtenidas de servicio 4 y 5;
+    // Compara métricas y calidad de ambas soluciones.
+
+    public void servicio6() {
+
+        Solucion backtracking = servicio4();
+
+        Solucion greedy = servicio5();
+
+        // comparar resultados
     }
 }
-

@@ -8,7 +8,7 @@ public class ContieneAlimentos implements Condicion {
 
     public ContieneAlimentos(boolean contiene) {
         this.contiene = contiene;
-        System.out.println("Condicion de busqueda por contiene alimentos con valores: "+contiene);
+        System.out.println("> Condicion de busqueda : Contiene alimentos con valor: "+contiene);
     }
 
     @Override

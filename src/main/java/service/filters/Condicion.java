@@ -7,6 +7,5 @@ public interface Condicion {
 
     boolean cumple(Paquete paquete);
 
-
 }
 

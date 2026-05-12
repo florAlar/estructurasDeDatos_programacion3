@@ -15,7 +15,6 @@ public class CamionService {
     CamionRepository camionRepo;
 
     public CamionService(String pathCamiones) {
-        System.out.println("**Servicio de camiones creado**");
 
         CamionesLoader camionesLoader = new CamionesLoader(pathCamiones);
         this.camionRepo = camionesLoader.almacenarEnRepo();
@@ -64,7 +63,7 @@ public class CamionService {
         return bt.resolver(camionRepo.obtenerTodos(), paquetes);
     }
 
-    public Solucion resolverConGreedy(){
+    public Solucion resolverConGreedy(ArrayList<Paquete> paquetes){
         //cuadno veamos greedy
         return null;
     }

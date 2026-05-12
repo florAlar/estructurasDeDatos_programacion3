@@ -4,66 +4,70 @@ import model.Paquete;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PaquetesRepository implements Repository<Paquete,String> {
+/*  Para el diseño de esta clase se eligieron dos estructuras de almacenamiento:
+
+    //ArrayList:
+       utilizado para recorridos completos y acceso posicional O(1).
+       Aunque el recorrido total sea O(n), resulta eficiente por trabajar sobre memoria contigua.
+
+    // HashMap:
+       utilizado para búsquedas directas por código.
+       Se sacrifica memoria adicional para obtener búsquedas O(1) promedio.
+       El costo de construcción del HashMap es O(n) y ocurre una única vez al inicializar el repositorio. */
+
+public class PaquetesRepository
+        implements Repository<Paquete, String> {
 
     private ArrayList<Paquete> paquetes;
     private HashMap<String, Paquete> paquetesPorCodigo;
+    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3) busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
 
     public PaquetesRepository(ArrayList<Paquete> paquetes) {
-        setPaquetes(paquetes);
+        setPaquetes(paquetes); // O(n).
     }
 
     private void setPaquetes(ArrayList<Paquete> paquetes) {
 
         this.paquetes = paquetes;
-
-        // O(n) una sola vez al inicializar, luego la lectura la hago por O(1),
-        // sacrifico memoria fisica pero si tuviera que recorrer array paquetes cada vez que me piden un camion con id, seria O(n);
         paquetesPorCodigo = new HashMap<>();
 
         for (Paquete paquete : paquetes) {
             paquetesPorCodigo.put(paquete.getCodigo_Paquete(), paquete);
         }
-
-        System.out.println(paquetes.size() + " paquetes cargados en repositorio: Complejidad Asociada O(n)" );
+        System.out.println(paquetes.size()+ " paquetes cargados en repositorio." + " Complejidad asociada: O(n)");
     }
 
     @Override
     public Paquete buscarPorIdentificador(String codigo) {
-        return paquetesPorCodigo.get(codigo);
+        return paquetesPorCodigo.get(codigo); // O(1).
     }
 
     @Override
     public boolean existe(String codigo) {
-        return buscarPorIdentificador(codigo) != null;
+        return buscarPorIdentificador(codigo)!= null; // O(1).
     }
-
 
     @Override
     public ArrayList<Paquete> obtenerTodos() {
-        //siempre O(n) para no romper encapsulamiento; si expongo el array original es O(1);
-        return new ArrayList<>(paquetes);
+        return new ArrayList<>(paquetes); // O(n) - copia defensiva.
     }
 
     @Override
     public int cantidad() {
-        return paquetes.size();
+        return paquetes.size();  // O(1).
     }
 
-     public void imprimirPaquetes() {
+    public void imprimirPaquetes() {
 
         if (paquetes == null || paquetes.isEmpty()) {
             System.out.println("No hay paquetes.");
             return;
         }
 
-        System.out.println("Camiones cargados:");
+        System.out.println("Paquetes cargados:");
 
         for (Paquete paquete : paquetes) {
             System.out.println(paquete);
-        }
+        } // O(n).
     }
-
-
-
 }

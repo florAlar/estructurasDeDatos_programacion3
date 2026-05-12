@@ -9,16 +9,11 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
     private ArrayList<Camion> camiones;
     private HashMap<Integer, Camion> camionesPorId;
+    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3) busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
 
     public CamionRepository(ArrayList<Camion> camiones) {
-        setCamiones(camiones);
+        setCamiones(camiones); // O(n).
     }
-
-    // para busqueda posicional es O(1), mas eficiente para recorridos completos
-    // aunque sea O(n) el recorrido es por celdas constiguas de memoria, menos costoso
-    // para busqueda por acceso por clave (idCamion)
-    // sacrifico un poco de memoria pero el costo computacional es menor para ese tipo de busqueda.
-    // O(n) 1 unica vez cuando inicializo el hashmap, luego accedo por O(1) en la lectura;
 
     private void setCamiones(ArrayList<Camion> camiones) {
 
@@ -34,23 +29,22 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
     @Override
     public Camion buscarPorIdentificador(Integer id) {
-        return camionesPorId.get(id);
+        return camionesPorId.get(id); // O(1).
     }
 
     @Override
     public boolean existe(Integer id) {
-        return this.buscarPorIdentificador(id) != null;
+        return this.buscarPorIdentificador(id) != null; // O(1).
     }
 
     @Override
     public ArrayList<Camion> obtenerTodos() {
-        //siempre O(n) para no romper encapsulamiento; si expongo el array original es O(1);
-        return new ArrayList<>(camiones);
+       return new ArrayList<>(camiones); // O(n). - copia defensiva.
     }
 
     @Override
     public int cantidad() {
-        return camiones.size();
+        return camiones.size(); // O(1).
     }
 
     public void imprimirCamiones() {
@@ -64,7 +58,7 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
         for (Camion camion : camiones) {
             System.out.println(camion);
-        }
+        } // O(n).
     }
 }
 

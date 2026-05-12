@@ -7,19 +7,15 @@ public class CondicionUrgencia implements Condicion {
     private int min;
     private int max;
 
-
-
-
     public CondicionUrgencia(int min, int max) {
         this.min = min;
         this.max = max;
-       System.out.println("Condicion de busqueda por urgencia con valores: "+"min: " + min + " max: " + max);
+        System.out.println("> Condicion de busqueda: Urgencia con valores entre "+"min: " + min + " y max: " + max);
     }
 
     @Override
     public boolean cumple(Paquete paquete) {
 
-        return paquete.getUrgencia() >= min
-                && paquete.getUrgencia() <= max;
+        return paquete.getUrgencia() >= min && paquete.getUrgencia() <= max;
     }
 }
