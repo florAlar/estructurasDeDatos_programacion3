@@ -1,8 +1,5 @@
 package data.loader;
 import model.Camion;
-import repo.CamionRepository;
-
-import java.util.ArrayList;
 
 public class CamionesLoader extends CsvLoader<Camion> {
 
@@ -23,11 +20,5 @@ public class CamionesLoader extends CsvLoader<Camion> {
         double capacidad_kg = Double.parseDouble(partes[3]);
 
         return new Camion(id_camion, patente, esta_refrigerado, capacidad_kg);
-    }
-
-    @Override
-    public CamionRepository almacenarEnRepo() {
-        ArrayList<Camion> camiones = new ArrayList<>(super.cargarDatos(this.ruta));
-        return new CamionRepository(camiones);
     }
 }

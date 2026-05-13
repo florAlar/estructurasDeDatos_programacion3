@@ -1,20 +1,18 @@
 package service;
 
-import data.loader.PaquetesLoader;
 import model.Paquete;
 import repo.PaquetesRepository;
 import service.filters.Condicion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PaqueteService {
 
-    PaquetesRepository paqueteRepo;
+    private final PaquetesRepository paqueteRepo;
 
-    public  PaqueteService(String pathPaquetes) {
-
-        PaquetesLoader paquetesLoader = new PaquetesLoader(pathPaquetes);
-        paqueteRepo = paquetesLoader.almacenarEnRepo();
+    public PaqueteService(PaquetesRepository paqueteRepo) {
+        this.paqueteRepo = paqueteRepo;
     }
 
 
@@ -28,7 +26,7 @@ public class PaqueteService {
         return paqueteRepo.cantidad();
     }
 
-    public ArrayList<Paquete> getPaquetes(){
+    public List<Paquete> getPaquetes(){
         return paqueteRepo.obtenerTodos();
     }
 
@@ -38,10 +36,10 @@ public class PaqueteService {
 
     /* Metodos del servicio */
 
-    public ArrayList<Paquete> getPaquetesFiltrados(Condicion c1){
+    public List<Paquete> getPaquetesFiltrados(Condicion c1){
 
-        ArrayList<Paquete> paquetes = paqueteRepo.obtenerTodos();
-        ArrayList<Paquete> paquetesFiltrados = new ArrayList<>();
+        List<Paquete> paquetes = paqueteRepo.obtenerTodos();
+        List<Paquete> paquetesFiltrados = new ArrayList<>();
 
         for (Paquete paq : paquetes){
 
@@ -49,8 +47,6 @@ public class PaqueteService {
                 paquetesFiltrados.add(paq);
             }
         }
-
-        System.out.println("Complejidad computacional asociada a busqueda en array: O(n). - total de paquetes encontrados: " + paquetesFiltrados.size()+".-");
 
         return paquetesFiltrados;
 

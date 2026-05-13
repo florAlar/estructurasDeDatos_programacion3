@@ -2,21 +2,20 @@ package model;
 
 public class Camion implements Comparable<Camion> {
 
-    private Integer id_camion;
+    private Integer idCamion;
     private String patente;
-    private boolean esta_refrigerado;
-    private Double capacidad_kg;
+    private boolean estaRefrigerado;
+    private Double capacidadKg;
 
-    public Camion(Integer id_camion, String patente, boolean esta_refrigerado, Double capacidad_kg) {
-
-        setID(id_camion);
-        setPatente(patente);
-        setRefrigerado(esta_refrigerado);
-        setCapacidad(capacidad_kg);
+    public Camion(Integer idCamion, String patente, boolean estaRefrigerado, Double capacidadKg) {
+        this.idCamion = idCamion;
+        this.patente = patente;
+        this.estaRefrigerado = estaRefrigerado;
+        this.capacidadKg = capacidadKg;
     }
 
     public Integer getID() {
-        return id_camion;
+        return idCamion;
     }
 
     public String getPatente() {
@@ -24,42 +23,42 @@ public class Camion implements Comparable<Camion> {
     }
 
     public boolean estaRefrigerado() {
-        return esta_refrigerado;
+        return estaRefrigerado;
     }
 
     public Double getCapacidad() {
-        return capacidad_kg;
+        return capacidadKg;
     }
 
-    public void setID(Integer id_camion) {
-        this.id_camion = id_camion;
+    private void setID(Integer idCamion) {
+        this.idCamion = idCamion;
     }
 
-    public void setPatente(String patente) {
+    private void setPatente(String patente) {
         this.patente = patente;
     }
 
-    public void setRefrigerado(boolean esta_refrigerado) {
-        this.esta_refrigerado = esta_refrigerado;
+    private void setRefrigerado(boolean estaRefrigerado) {
+        this.estaRefrigerado = estaRefrigerado;
     }
 
-    public void setCapacidad(Double capacidad_kg) {
-        this.capacidad_kg = capacidad_kg;
+    private void setCapacidad(Double capacidadKg) {
+        this.capacidadKg = capacidadKg;
     }
 
     @Override
     public int compareTo(Camion camion) {
         // Mayor capacidad primero
-        return Double.compare(camion.capacidad_kg, this.capacidad_kg);
+        return Double.compare(camion.capacidadKg, this.capacidadKg);
     }
 
     @Override
     public String toString() {
-        return "Camion " + id_camion + " { " +
-                "id_camion= " + id_camion +
+        return "Camion " + idCamion + " { " +
+                "idCamion= " + idCamion +
                 ", patente=' " + patente + '\'' +
-                ", esta_refrigerado= " + esta_refrigerado +
-                ", capacidad_kg= " + capacidad_kg +
+                ", estaRefrigerado= " + estaRefrigerado +
+                ", capacidadKg= " + capacidadKg +
                 '}';
     }
 }
