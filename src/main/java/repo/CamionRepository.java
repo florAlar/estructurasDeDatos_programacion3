@@ -24,7 +24,6 @@ public class CamionRepository implements Repository<Camion,Integer> {
         for (Camion camion : camiones) {
             camionesPorId.put(camion.getID(), camion);
         }
-        System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n)" );
     }
 
     @Override
@@ -45,20 +44,6 @@ public class CamionRepository implements Repository<Camion,Integer> {
     @Override
     public int cantidad() {
         return camiones.size(); // O(1).
-    }
-
-    public void imprimirCamiones() {
-
-        if (camiones == null ||  camiones.isEmpty()) {
-            System.out.println("No hay camiones cargados.");
-            return;
-        }
-
-        System.out.println("Camiones cargados:");
-
-        for (Camion camion : camiones) {
-            System.out.println(camion);
-        } // O(n).
     }
 }
 

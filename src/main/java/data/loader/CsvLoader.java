@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import repo.Repository;
 
 public abstract class CsvLoader<T> {
 
@@ -15,9 +14,10 @@ public abstract class CsvLoader<T> {
 
             try {
                 InputStream is = getClass().getResourceAsStream("/" + nombreArchivo);
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
                 if (is == null) { throw new RuntimeException("no se encontro el archivo " + nombreArchivo);}
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
                 String linea;
 
@@ -38,5 +38,4 @@ public abstract class CsvLoader<T> {
 
         protected abstract T parsearLinea(String linea);
 
-        public abstract Repository almacenarEnRepo();
     }

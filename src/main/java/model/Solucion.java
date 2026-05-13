@@ -1,4 +1,4 @@
-package algoritmos;
+package model;
 
 public class Solucion {
     // en esta clase va el estado de la solucion defiitiva, por ejemplo:

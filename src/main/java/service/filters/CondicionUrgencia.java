@@ -10,7 +10,6 @@ public class CondicionUrgencia implements Condicion {
     public CondicionUrgencia(int min, int max) {
         this.min = min;
         this.max = max;
-        System.out.println("> Condicion de busqueda: Urgencia con valores entre "+"min: " + min + " y max: " + max);
     }
 
     @Override
