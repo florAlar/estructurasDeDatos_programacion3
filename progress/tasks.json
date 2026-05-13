@@ -1,0 +1,256 @@
+{
+  "project": "TPE Prog3 — Refactor Arquitectónico",
+  "created": "2026-05-12",
+  "branch": "refactor/mejoras-arquitectura",
+  "statusValues": ["pending", "in-progress", "done", "blocked"],
+
+  "phases": [
+    {
+      "id": "fase-1",
+      "name": "Modelos y fundamentos",
+      "description": "Sin dependencias externas. Todos los pasos son paralelos entre sí.",
+      "dependsOn": [],
+      "verification": "mvn compile sin errores ni warnings"
+    },
+    {
+      "id": "fase-2",
+      "name": "Repositorios",
+      "description": "Limpieza de side-effects (println) en capas de datos y servicio.",
+      "dependsOn": ["fase-1"],
+      "verification": "Ejecutar Main y confirmar que servicio1, servicio2 y servicio3 retornan resultados correctos.",
+      "pendingDecisions": [
+        "¿Conviene TreeMap<Integer, List<Paquete>> en PaquetesRepository para mejorar servicio3 de O(n) a O(log n + k)?",
+        "¿Conviene pre-indexar listas por alimentos para mejorar servicio2 de O(n) a O(k)?"
+      ]
+    },
+    {
+      "id": "fase-3",
+      "name": "Arquitectura",
+      "description": "Reestructura de paquetes, jerarquía de algoritmos y Composition Root.",
+      "dependsOn": ["fase-1", "fase-2"],
+      "verification": "Ejecutar los 3 servicios y confirmar resultados idénticos a antes del refactor."
+    },
+    {
+      "id": "fase-4",
+      "name": "Presentación",
+      "description": "Eliminar println sueltos y unificar toda la salida en util/Consola.",
+      "dependsOn": ["fase-3"],
+      "verification": "Confirmar que no existe ningún System.out.println fuera de util/Consola."
+    }
+  ],
+
+  "tasks": [
+    {
+      "id": "task-1",
+      "phase": "fase-1",
+      "title": "Renombrar campos snake_case → camelCase en Camion y Paquete",
+      "status": "pending",
+      "dependencies": [],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/model/Camion.java",
+        "src/main/java/model/Paquete.java",
+        "src/main/java/data/loader/PaquetesLoader.java",
+        "src/main/java/repo/PaquetesRepository.java",
+        "src/main/java/service/filters/CondicionUrgencia.java",
+        "src/main/java/service/filters/ContieneAlimentos.java"
+      ],
+      "subtasks": [
+        "Renombrar id_camion → idCamion en Camion",
+        "Renombrar esta_refrigerado → estaRefrigerado en Camion",
+        "Renombrar capacidad_kg → capacidadKg en Camion",
+        "Renombrar codigo_paquete → codigoPaquete en Paquete",
+        "Renombrar peso_kg → pesoKg en Paquete",
+        "Renombrar contiene_alimentos → contieneAlimentos en Paquete",
+        "Renombrar nivel_urgencia → nivelUrgencia en Paquete",
+        "Actualizar constructor, getters, toString y compareTo en Camion y Paquete",
+        "Renombrar getCodigo_Paquete() → getCodigoPaquete()",
+        "Actualizar referencias en PaquetesLoader, PaquetesRepository, CondicionUrgencia, ContieneAlimentos"
+      ]
+    },
+    {
+      "id": "task-2",
+      "phase": "fase-1",
+      "title": "Hacer setters private en Camion y Paquete",
+      "status": "pending",
+      "dependencies": [],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/model/Camion.java",
+        "src/main/java/model/Paquete.java"
+      ],
+      "subtasks": [
+        "Cambiar visibilidad de todos los setters a private en Camion",
+        "Cambiar visibilidad de todos los setters a private en Paquete",
+        "Reemplazar llamadas a setters en el constructor de Camion por asignación directa this.campo = param",
+        "Reemplazar llamadas a setters en el constructor de Paquete por asignación directa this.campo = param"
+      ]
+    },
+    {
+      "id": "task-3",
+      "phase": "fase-1",
+      "title": "Fix bug null check en CsvLoader",
+      "status": "pending",
+      "dependencies": [],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/data/loader/CsvLoader.java"
+      ],
+      "subtasks": [
+        "Mover 'if (is == null) throw ...' antes de 'new BufferedReader(new InputStreamReader(is))' para evitar NPE"
+      ]
+    },
+    {
+      "id": "task-4",
+      "phase": "fase-1",
+      "title": "Corregir raw type en CsvLoader",
+      "status": "pending",
+      "dependencies": [],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/data/loader/CsvLoader.java"
+      ],
+      "subtasks": [
+        "Cambiar 'public abstract Repository almacenarEnRepo()' → 'public abstract Repository<T, ?> almacenarEnRepo()'"
+      ]
+    },
+    {
+      "id": "task-5",
+      "phase": "fase-2",
+      "title": "Eliminar todos los System.out.println de repositorios, filtros y servicio",
+      "status": "pending",
+      "dependencies": ["task-1", "task-2", "task-3", "task-4"],
+      "parallel": false,
+      "affectedFiles": [
+        "src/main/java/repo/CamionRepository.java",
+        "src/main/java/repo/PaquetesRepository.java",
+        "src/main/java/service/filters/CondicionUrgencia.java",
+        "src/main/java/service/filters/ContieneAlimentos.java",
+        "src/main/java/service/PaqueteService.java"
+      ],
+      "subtasks": [
+        "Eliminar println en CamionRepository",
+        "Eliminar println en PaquetesRepository",
+        "Eliminar println en CondicionUrgencia",
+        "Eliminar println en ContieneAlimentos",
+        "Eliminar println en PaqueteService"
+      ]
+    },
+    {
+      "id": "task-6",
+      "phase": "fase-3",
+      "title": "Mover Solucion al paquete model",
+      "status": "pending",
+      "dependencies": ["task-5"],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/algoritmos/Solucion.java",
+        "src/main/java/model/Solucion.java",
+        "src/main/java/service/Service.java",
+        "src/main/java/service/CamionService.java",
+        "src/main/java/algoritmos/Backtracking.java",
+        "src/main/java/algoritmos/Greedy_para_cuando_exista.java"
+      ],
+      "subtasks": [
+        "Cambiar declaración de paquete en Solucion.java: 'package algoritmos' → 'package model'",
+        "Mover archivo a src/main/java/model/Solucion.java",
+        "Actualizar imports en Service, CamionService, Backtracking y Greedy_para_cuando_exista"
+      ]
+    },
+    {
+      "id": "task-7",
+      "phase": "fase-3",
+      "title": "Crear clase abstracta algoritmos/Algoritmo.java",
+      "status": "pending",
+      "dependencies": ["task-6"],
+      "parallel": false,
+      "affectedFiles": [
+        "src/main/java/algoritmos/Algoritmo.java"
+      ],
+      "subtasks": [
+        "Crear archivo Algoritmo.java en paquete algoritmos",
+        "Declarar método abstracto: public abstract Solucion resolver(List<Camion> camiones, List<Paquete> paquetes)",
+        "Implementar método concreto compartido: protected boolean puedeAsignar(Camion camion, Paquete paquete, double pesoActual)"
+      ]
+    },
+    {
+      "id": "task-8",
+      "phase": "fase-3",
+      "title": "Backtracking extends Algoritmo y renombrar Greedy",
+      "status": "pending",
+      "dependencies": ["task-7"],
+      "parallel": false,
+      "affectedFiles": [
+        "src/main/java/algoritmos/Backtracking.java",
+        "src/main/java/algoritmos/Greedy_para_cuando_exista.java",
+        "src/main/java/algoritmos/Greedy.java"
+      ],
+      "subtasks": [
+        "Hacer que Backtracking extienda Algoritmo y anote @Override en resolver()",
+        "Renombrar Greedy_para_cuando_exista → Greedy",
+        "Hacer que Greedy extienda Algoritmo y anote @Override en resolver()",
+        "Actualizar referencias al nombre de la clase Greedy en toda la base de código"
+      ]
+    },
+    {
+      "id": "task-9",
+      "phase": "fase-3",
+      "title": "Eliminar almacenarEnRepo() de CsvLoader y subclases",
+      "status": "pending",
+      "dependencies": ["task-5"],
+      "parallel": true,
+      "affectedFiles": [
+        "src/main/java/data/loader/CsvLoader.java",
+        "src/main/java/data/loader/CamionesLoader.java",
+        "src/main/java/data/loader/PaquetesLoader.java"
+      ],
+      "subtasks": [
+        "Quitar método abstracto almacenarEnRepo() de CsvLoader",
+        "Quitar implementación de almacenarEnRepo() en CamionesLoader",
+        "Quitar implementación de almacenarEnRepo() en PaquetesLoader",
+        "Ambos loaders quedan únicamente con parsearLinea()"
+      ]
+    },
+    {
+      "id": "task-10",
+      "phase": "fase-3",
+      "title": "Composition Root + renombrar Service → Servicios",
+      "status": "pending",
+      "dependencies": ["task-7", "task-8", "task-9"],
+      "parallel": false,
+      "affectedFiles": [
+        "src/main/java/service/Service.java",
+        "src/main/java/service/Servicios.java",
+        "src/main/java/service/CamionService.java",
+        "src/main/java/service/PaqueteService.java",
+        "src/main/java/Main.java"
+      ],
+      "subtasks": [
+        "Renombrar clase Service → Servicios (y su archivo)",
+        "Cambiar firmas de métodos a List<Paquete> en lugar de ArrayList<Paquete>",
+        "Cambiar constructor de Servicios para recibir: PaquetesRepository, CamionRepository, Algoritmo backtracking, Algoritmo greedy",
+        "Eliminar CamionService — sus métodos de delegación pasan directamente a Servicios",
+        "Refactorizar PaqueteService para recibir PaquetesRepository por constructor (sin construirlo internamente)",
+        "En Main: construir loaders → repos → algoritmos → Servicios (Composition Root)"
+      ]
+    },
+    {
+      "id": "task-11",
+      "phase": "fase-4",
+      "title": "Actualizar Main para usar util/Consola",
+      "status": "pending",
+      "dependencies": ["task-10"],
+      "parallel": false,
+      "affectedFiles": [
+        "src/main/java/Main.java",
+        "src/main/java/util/Consola.java"
+      ],
+      "subtasks": [
+        "Reemplazar System.out.println restantes en Main por llamadas a Consola",
+        "Dar formato de salida para resultados de Backtracking según el enunciado",
+        "Dar formato de salida para resultados de Greedy según el enunciado",
+        "Verificar que no queda ningún System.out.println fuera de util/Consola"
+      ]
+    }
+  ]
+}
