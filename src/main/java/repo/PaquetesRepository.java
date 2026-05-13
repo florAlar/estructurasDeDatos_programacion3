@@ -32,9 +32,8 @@ public class PaquetesRepository
         paquetesPorCodigo = new HashMap<>();
 
         for (Paquete paquete : paquetes) {
-            paquetesPorCodigo.put(paquete.getCodigo_Paquete(), paquete);
+            paquetesPorCodigo.put(paquete.getCodigoPaquete(), paquete);
         }
-        System.out.println(paquetes.size()+ " paquetes cargados en repositorio." + " Complejidad asociada: O(n)");
     }
 
     @Override
@@ -55,19 +54,5 @@ public class PaquetesRepository
     @Override
     public int cantidad() {
         return paquetes.size();  // O(1).
-    }
-
-    public void imprimirPaquetes() {
-
-        if (paquetes == null || paquetes.isEmpty()) {
-            System.out.println("No hay paquetes.");
-            return;
-        }
-
-        System.out.println("Paquetes cargados:");
-
-        for (Paquete paquete : paquetes) {
-            System.out.println(paquete);
-        } // O(n).
     }
 }
