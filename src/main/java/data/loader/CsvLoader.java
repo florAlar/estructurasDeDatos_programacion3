@@ -15,23 +15,55 @@ public abstract class CsvLoader<T> {
 
             try {
                 InputStream is = getClass().getResourceAsStream("/" + nombreArchivo);
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-                if (is == null) { throw new RuntimeException("no se encontro el archivo " + nombreArchivo);}
-
-                String linea;
-
-                br.readLine();
-
-                while ((linea = br.readLine()) != null) {
-                    T elemento = parsearLinea(linea);
-                    elementos.add(elemento);
+                if (is == null) {
+                    throw new CsvFormatoInvalidoExcepcion("no se encontro el archivo " + nombreArchivo);
                 }
 
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+                String primeraLinea = br.readLine();
+
+                if (primeraLinea == null || primeraLinea.isBlank()) {
+                    throw new CsvFormatoInvalidoExcepcion("El archivo está vacío.");
+                }
+
+                int cantidadEsperada;
+
+                try {
+                    cantidadEsperada = Integer.parseInt(primeraLinea.trim());
+                } catch (NumberFormatException e) {
+                    throw new CsvFormatoInvalidoExcepcion("La primera línea debe indicar la cantidad de registros.");
+                }
+
+                String linea;
+                int cantidadLeida = 0;
+                int nroLinea = 2;
+
+                while ((linea = br.readLine()) != null) {
+
+
+                    if (linea.isBlank()) {
+                        throw new CsvFormatoInvalidoExcepcion("Línea vacía: " + nroLinea);
+                    }
+
+                    try {
+                    T elemento = parsearLinea(linea);
+                    elementos.add(elemento);
+
+                    }catch (Exception e) {
+                            throw new CsvFormatoInvalidoExcepcion("Formato inválido en línea " + nroLinea + ": " + linea);
+                    }
+                    cantidadLeida++;
+                    nroLinea++;
+                }
                 br.close();
+                if (cantidadLeida != cantidadEsperada) {
+                    throw new CsvFormatoInvalidoExcepcion("Cantidad de registros incorrecta. " + "Se esperaban " + cantidadEsperada + " y se encontraron " + cantidadLeida);
+                }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Error leyendo archivo", e);
             }
             return elementos;
         }

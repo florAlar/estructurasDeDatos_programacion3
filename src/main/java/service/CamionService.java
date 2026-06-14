@@ -1,6 +1,7 @@
 package service;
 
 import algoritmos.Backtracking;
+import algoritmos.Greedy;
 import data.loader.CamionesLoader;
 import model.Camion;
 import model.Paquete;
@@ -38,15 +39,8 @@ public class CamionService {
         return camionRepo.existe(id);
     }
 
-
     /* Metodos del servicio */
 
-    public boolean puedeTransportar(Paquete paquete){
-
-        // chequear el espacio libre del camion
-        //comparar con la del paquete
-        return true;
-    }
 
     public Double getCargaActual(Camion camion){
         return null;
@@ -64,8 +58,8 @@ public class CamionService {
     }
 
     public Solucion resolverConGreedy(ArrayList<Paquete> paquetes){
-        //cuadno veamos greedy
-        return null;
+        Greedy gt = new Greedy();
+        return gt.resolver(paquetes, camionRepo.obtenerTodos());
     }
 
 }

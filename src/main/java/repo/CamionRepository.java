@@ -2,6 +2,7 @@ package repo;
 
 import model.Camion;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -9,21 +10,34 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
     private ArrayList<Camion> camiones;
     private HashMap<Integer, Camion> camionesPorId;
-    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3) busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
+    private Double capacidadRefrigerada;
+    private Double capacidadNoRefrigerada;
+    private Double capacidadTotal;
 
     public CamionRepository(ArrayList<Camion> camiones) {
+        this.capacidadRefrigerada = 0.0;
+        this.capacidadNoRefrigerada = 0.0;
+        this.capacidadTotal = 0.0;
+        this.camiones = new ArrayList<>();
+        camionesPorId = new HashMap<>();
         setCamiones(camiones); // O(n).
     }
 
     private void setCamiones(ArrayList<Camion> camiones) {
 
-        this.camiones = camiones;
-
-        camionesPorId = new HashMap<>();
-
         for (Camion camion : camiones) {
+
             camionesPorId.put(camion.getID(), camion);
+            this.camiones.add(camion);
+
+            if (camion.estaRefrigerado()) {
+                this.capacidadRefrigerada += camion.getCapacidad();
+            }else {
+                this.capacidadNoRefrigerada += camion.getCapacidad();
+            }
+            capacidadTotal += camion.getCapacidad();
         }
+
         System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n)" );
     }
 

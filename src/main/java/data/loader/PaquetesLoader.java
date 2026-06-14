@@ -19,13 +19,41 @@ public class PaquetesLoader extends CsvLoader<Paquete> {
 
         String[] partes = linea.split(";");
 
-        int id_paquete = Integer.parseInt(partes[0]);
-        String codigo_paquete = partes[1];
-        double peso_kg = Double.parseDouble(partes[2]);
-        boolean contiene_alimentos = partes[3].equals("1");
-        int nivel_urgencia = Integer.parseInt(partes[4]);
+        if (partes.length != 5) {
+            throw new CsvFormatoInvalidoExcepcion("Formato de paquete inválido. Se esperaban 5 datos: " + linea);
+        }
 
-        return new Paquete(id_paquete, codigo_paquete, peso_kg, contiene_alimentos, nivel_urgencia);
+        try{
+
+            int id_paquete = Integer.parseInt(partes[0]);
+            String codigo_paquete = partes[1];
+
+            if (codigo_paquete.isEmpty()) {
+                throw new CsvFormatoInvalidoExcepcion("El código de paquete no puede estar vacío.");
+            }
+
+            double peso_kg = Double.parseDouble(partes[2]);
+
+            if (peso_kg <= 0) {
+                throw new CsvFormatoInvalidoExcepcion("El peso debe ser positivo.");
+            }
+
+            if (!partes[3].equals("0") && !partes[3].equals("1")) {
+                throw new CsvFormatoInvalidoExcepcion("El campo contiene_alimentos debe ser 0 o 1.");
+            }
+
+            boolean contiene_alimentos = partes[3].equals("1");
+            int nivel_urgencia = Integer.parseInt(partes[4]);
+
+            if (nivel_urgencia < 1 ||nivel_urgencia > 100) {
+                throw new CsvFormatoInvalidoExcepcion("La urgencia debe estar entre 1 y 100.");
+            }
+
+            return new Paquete(id_paquete, codigo_paquete, peso_kg, contiene_alimentos, nivel_urgencia);
+
+        }catch (NumberFormatException e) {
+            throw new CsvFormatoInvalidoExcepcion("Faltan datos en: " + linea);
+        }
     }
 
     @Override

@@ -1,3 +1,4 @@
+import algoritmos.Solucion;
 import model.Paquete;
 import service.Service;
 import java.util.ArrayList;
@@ -14,5 +15,10 @@ public class Main {
 
         ArrayList<Paquete> respuesta3 = servicio.servicio3(70,95);
 
+        Solucion solucionBacktracking = servicio.servicio4();
+
+        Solucion solucionGreedy = servicio.servicio5();
+
+        servicio.servicio6(solucionBacktracking,solucionGreedy);
     }
 }

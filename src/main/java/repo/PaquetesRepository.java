@@ -2,6 +2,7 @@ package repo;
 
 import model.Paquete;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /*  Para el diseño de esta clase se eligieron dos estructuras de almacenamiento:
@@ -9,6 +10,7 @@ import java.util.HashMap;
     //ArrayList:
        utilizado para recorridos completos y acceso posicional O(1).
        Aunque el recorrido total sea O(n), resulta eficiente por trabajar sobre memoria contigua.
+       se devuelven los array ordenados por determinada condicion segun el metodo que lo llame.
 
     // HashMap:
        utilizado para búsquedas directas por código.
@@ -18,9 +20,10 @@ import java.util.HashMap;
 public class PaquetesRepository
         implements Repository<Paquete, String> {
 
-    private ArrayList<Paquete> paquetes;
+    private ArrayList<Paquete> paquetes; // arrayListOrdenadoPorPeso
     private HashMap<String, Paquete> paquetesPorCodigo;
-    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3) busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
+    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3)
+    // busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
 
     public PaquetesRepository(ArrayList<Paquete> paquetes) {
         setPaquetes(paquetes); // O(n).
@@ -70,4 +73,5 @@ public class PaquetesRepository
             System.out.println(paquete);
         } // O(n).
     }
+
 }

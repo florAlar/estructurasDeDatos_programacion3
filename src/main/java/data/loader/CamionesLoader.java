@@ -17,10 +17,23 @@ public class CamionesLoader extends CsvLoader<Camion> {
 
         String[] partes = linea.split(";");
 
+        if (partes.length != 4) {
+            throw new CsvFormatoInvalidoExcepcion("Un camión debe tener 4 datos.");
+        }
+
         int id_camion = Integer.parseInt(partes[0]);
         String patente = partes[1];
+
+        if (!partes[2].equals("0") && !partes[2].equals("1")) {
+            throw new CsvFormatoInvalidoExcepcion("El campo refrigerado debe ser 0 o 1.");
+        }
+
         boolean esta_refrigerado = partes[2].equals("1");
         double capacidad_kg = Double.parseDouble(partes[3]);
+
+        if (capacidad_kg <= 0) {
+            throw new CsvFormatoInvalidoExcepcion("El camion tiene que tener capacidad de carga.");
+        }
 
         return new Camion(id_camion, patente, esta_refrigerado, capacidad_kg);
     }

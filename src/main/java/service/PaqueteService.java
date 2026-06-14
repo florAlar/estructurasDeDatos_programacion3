@@ -3,20 +3,23 @@ package service;
 import data.loader.PaquetesLoader;
 import model.Paquete;
 import repo.PaquetesRepository;
-import service.filters.Condicion;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PaqueteService {
+
+    public enum CriterioOrden {
+        PESO,
+        URGENCIA
+    }
 
     PaquetesRepository paqueteRepo;
 
     public  PaqueteService(String pathPaquetes) {
-
         PaquetesLoader paquetesLoader = new PaquetesLoader(pathPaquetes);
         paqueteRepo = paquetesLoader.almacenarEnRepo();
     }
-
 
     /* metodos de repo */
 
@@ -38,25 +41,66 @@ public class PaqueteService {
 
     /* Metodos del servicio */
 
-    public ArrayList<Paquete> getPaquetesFiltrados(Condicion c1){
+    public ArrayList<Paquete> getPaquetesConAlimentos(boolean conAlimento){
 
         ArrayList<Paquete> paquetes = paqueteRepo.obtenerTodos();
         ArrayList<Paquete> paquetesFiltrados = new ArrayList<>();
 
         for (Paquete paq : paquetes){
-
-            if(c1.cumple(paq)){
+            if(paq.contieneAlimentos() == conAlimento){
                 paquetesFiltrados.add(paq);
             }
         }
 
-        System.out.println("Complejidad computacional asociada a busqueda en array: O(n). - total de paquetes encontrados: " + paquetesFiltrados.size()+".-");
+        System.out.println("Complejidad computacional asociada a busqueda en array: O(n). - total de paquetes con alimentos encontrados: " + paquetesFiltrados.size()+".-");
 
         return paquetesFiltrados;
 
         //O(n) -> si o si recorro todos los elementos para filtrarlos.
-        //en este caso no utilizo una estructura aparte porque la lista principal es dinamica
-        // y el costo de mantener otra estructura en memoria actualizada no esta justificando la frecuencia de esta consulta en particular;
+
     }
 
+
+    public ArrayList<Paquete> getPaquetesEnRango(int min, int max) {
+
+        ArrayList<Paquete> paquetes = paqueteRepo.obtenerTodos();
+        ArrayList<Paquete> paquetesFiltrados = new ArrayList<>();
+
+        for (Paquete paquete : paquetes) {
+
+            if (paquete.getUrgencia() >= min && paquete.getUrgencia() <= max) {
+
+                    paquetesFiltrados.add(paquete);
+            }
+        }
+
+        System.out.println( "Complejidad computacional asociada a la búsqueda secuencial: O(n). " + "Paquetes encontrados con urgencia entre " + min + " y " + max + ": " + paquetesFiltrados.size() + ".-");
+
+        return paquetesFiltrados;
+    }
+
+    public ArrayList<Paquete> getPaquetesOrdenados(CriterioOrden criterio) {
+
+        ArrayList<Paquete> copia = paqueteRepo.obtenerTodos();
+
+        switch (criterio) {
+
+            case PESO:
+                copia.sort(
+                        Comparator.comparingDouble(Paquete::getPeso)
+                                .reversed()
+                );
+                break;
+
+            case URGENCIA:
+                copia.sort(
+                        Comparator.comparingInt(Paquete::getUrgencia)
+                                .reversed()
+                );
+                break;
+        }
+
+        return copia;
+    }
 }
+
