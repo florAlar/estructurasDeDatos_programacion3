@@ -26,7 +26,10 @@ public class Estado {
 
     public boolean puedeCargar(Camion camion, Paquete paquete) {
 
-        if (paquete.contieneAlimentos() && !camion.estaRefrigerado()){ return false; }
+        if (paquete.contieneAlimentos() && !camion.estaRefrigerado()){
+            return false;
+        }
+
         double carga = cargaActual.get(camion);
 
         return carga + paquete.getPeso() <= camion.getCapacidad();

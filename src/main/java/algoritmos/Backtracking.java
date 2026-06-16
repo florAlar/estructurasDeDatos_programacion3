@@ -17,10 +17,18 @@ public class Backtracking {
 
         backtracking(camiones, paquetes, 0, estado);
 
-
         return mejorSolucion;
     }
+    /** La estrategia consiste en explorar recursivamente todas las posibles
+      asignaciones de todos los paquetes a camiones. Para cada paquete se evalúan
+      todas las alternativas válidas, en cada paso se decide qué hacer con el paquete actual: cargarlo en
+      alguno de los camiones compatibles o dejarlo sin cargar.
+      Cada decisión genera una rama del árbol de exploracion, construyendo las soluciones.
 
+      Cuando se alcanza una solución completa (la hoja), se compara con la mejor encontrada hasta el momento
+      y se conserva aquella que minimiza el peso total que no fue cargado en ningun camion.
+
+     */
     private void backtracking(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes, int index, Estado estado) {
 
         mejorSolucion.sumarIteracion();
@@ -29,6 +37,7 @@ public class Backtracking {
             if (estado.getPesoNoAsignado() < mejorSolucion.getPesoNoAsignado()) {
                 mejorSolucion.copiarDesde(estado);
             }
+
             mejorSolucion.sumarSolucionEvaluada();
             return;
         }

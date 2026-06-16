@@ -20,7 +20,7 @@ public class Service {
         this.camionService = new CamionService(pathCamiones);
         this.paqueteService = new PaqueteService(pathPaquetes);
 
-        System.out.println("-----------------------------");
+        System.out.println("\n");
 
     }
 
@@ -28,20 +28,67 @@ public class Service {
         La búsqueda se realiza mediante HashMap utilizando el código del paquete como clave. */
 
     public Paquete servicio1(String codigoPaquete) {
-        return paqueteService.getPaquete(codigoPaquete);
+
+        System.out.println("------Ejercicio 1------");
+
+        Paquete paquete = paqueteService.getPaquete(codigoPaquete);
+
+        if (paquete != null) {
+
+            System.out.println("El paquete encontrado es:" +  paquete.toString());
+
+            System.out.println("\n");
+
+            return paquete;
+        }else{
+            System.out.println("El paquete no existe");
+        }
+
+        System.out.println("\n");
+
+        return paquete;
+
+
     }
 
     /*  Complejidad temporal de busqueda en array: O(n).
-        Ambos servicios (2 y 3) utilizan el mismo recorrido secuencial de la colección
-        filtrando los paquetes que cumplan la condición solicitada. el array se encuentra ordenado por un algoritmo mergesort (on.logN) por orden de urgencia de camion.
-        mientras que la busqueda por si contiene alimentos o no es O(n) para lo que necesitamos esta bien */
+        servicios 2 y 3 utilizan el mismo recorrido secuencial de la colección ordenada
+        filtrando los paquetes que cumplan la condición solicitada.
+        el array se encuentra ordenado por collection.sort O(n.logN) por orden de urgencia de camion de manera tal que reduzca el tiempo de eejccucion
+        para la vbusqueda por rango de urgencia.
+        para el tamaño de la entrada del problema no es necesario duplicar nuevamente la memoria para almacenar
+        los paquetes en un hasmap con criterio de contiene o no contiene alimentos.
+
+     */
 
     public ArrayList<Paquete> servicio2(boolean contiene) {
-        return paqueteService.getPaquetesConAlimentos(contiene);
+
+        System.out.println("------Ejercicio 2------");
+
+        ArrayList<Paquete> paquetes = paqueteService.getPaquetesConAlimentos(contiene);
+
+        if (!paquetes.isEmpty()) {
+            System.out.println("Se encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
+        }else {
+            System.out.println("no se encontraron paquetes que coincidan con el criterio de búsqueda");
+        }
+        System.out.println("\n");
+        return paquetes;
     }
 
     public ArrayList<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
-        return paqueteService.getPaquetesEnRango( urgenciaMinima, urgenciaMaxima);
+
+        System.out.println("------Ejercicio 1------");
+
+        ArrayList<Paquete> paquetes = paqueteService.getPaquetesEnRango( urgenciaMinima, urgenciaMaxima);
+
+        if (!paquetes.isEmpty()) {
+            System.out.println("Se encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
+        }else {
+            System.out.println("No hay paquetes con urgencias solicitada");
+        }
+        System.out.println("\n");
+        return paquetes;
     }
 
     // Ejecuta la resolución utilizando Backtracking. sera O(C^P) camiones elevado a la cantidad de paquetes

@@ -9,7 +9,6 @@ import repo.CamionRepository;
 import algoritmos.Solucion;
 import java.util.ArrayList;
 
-//consultar si conviene tener esta clase o no, por separacion de responsabilidad.
 
 public class CamionService {
 

@@ -10,14 +10,10 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
     private ArrayList<Camion> camiones;
     private HashMap<Integer, Camion> camionesPorId;
-    private Double capacidadRefrigerada;
-    private Double capacidadNoRefrigerada;
-    private Double capacidadTotal;
+
 
     public CamionRepository(ArrayList<Camion> camiones) {
-        this.capacidadRefrigerada = 0.0;
-        this.capacidadNoRefrigerada = 0.0;
-        this.capacidadTotal = 0.0;
+
         this.camiones = new ArrayList<>();
         camionesPorId = new HashMap<>();
         setCamiones(camiones); // O(n).
@@ -30,12 +26,6 @@ public class CamionRepository implements Repository<Camion,Integer> {
             camionesPorId.put(camion.getID(), camion);
             this.camiones.add(camion);
 
-            if (camion.estaRefrigerado()) {
-                this.capacidadRefrigerada += camion.getCapacidad();
-            }else {
-                this.capacidadNoRefrigerada += camion.getCapacidad();
-            }
-            capacidadTotal += camion.getCapacidad();
         }
 
         System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n)" );

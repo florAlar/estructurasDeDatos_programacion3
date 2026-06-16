@@ -9,11 +9,11 @@ public class Main {
 
         Service servicio = new Service("camiones.csv","paquetes.csv");
 
-        Paquete respuesta1 = servicio.servicio1("P025");
+        Paquete respuesta1 = servicio.servicio1("P005");
 
-        ArrayList<Paquete> respuesta2 = servicio.servicio2(false);
+        ArrayList<Paquete> respuesta2 = servicio.servicio2(true);
 
-        ArrayList<Paquete> respuesta3 = servicio.servicio3(70,95);
+        ArrayList<Paquete> respuesta3 = servicio.servicio3(20,50);
 
         Solucion solucionBacktracking = servicio.servicio4();
 
