@@ -1,8 +1,11 @@
 package repo;
 
 import model.Paquete;
+import service.PaqueteService;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /*  Para el diseño de esta clase se eligieron dos estructuras de almacenamiento:
@@ -31,13 +34,21 @@ public class PaquetesRepository
 
     private void setPaquetes(ArrayList<Paquete> paquetes) {
 
+
+        paquetes.sort(Comparator.comparingDouble(Paquete::getUrgencia)); //O n.log(n)
+
+
         this.paquetes = paquetes;
         paquetesPorCodigo = new HashMap<>();
 
         for (Paquete paquete : paquetes) {
             paquetesPorCodigo.put(paquete.getCodigo_Paquete(), paquete);
         }
-        System.out.println(paquetes.size()+ " paquetes cargados en repositorio." + " Complejidad asociada: O(n)");
+
+        System.out.println(paquetes.size() + " paquetes cargados en repositorio." + " Complejidad asociada: O(n)");
+        System.out.println(paquetes);
+
+
     }
 
     @Override
@@ -47,7 +58,7 @@ public class PaquetesRepository
 
     @Override
     public boolean existe(String codigo) {
-        return buscarPorIdentificador(codigo)!= null; // O(1).
+        return buscarPorIdentificador(codigo) != null; // O(1).
     }
 
     @Override
@@ -73,5 +84,4 @@ public class PaquetesRepository
             System.out.println(paquete);
         } // O(n).
     }
-
 }

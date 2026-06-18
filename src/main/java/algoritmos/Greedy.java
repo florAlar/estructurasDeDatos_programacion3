@@ -9,11 +9,11 @@ import java.util.Comparator;
 public class Greedy {
 
     /**
-      Para esta estrategia se considero como seleccion de candidato el paquetes de mayor peso,
-      asignando cada uno al primer camion que pueda transportarlo (respetando las restricciones del problema)
-      una vez asignado cada paquete, no se reevalúan asignaciones previas.
-      Si ningún camión puede cargarlo, el paquete queda sin asignar.
-      El algoritmo busca construir una solución rápidamente sin explorar alternativas ni realizar retrocesos.
+     * Para esta estrategia se considero como seleccion de candidato el paquetes de mayor peso,
+     * asignando cada uno al primer camion que pueda transportarlo (respetando las restricciones del problema)
+     * una vez asignado cada paquete, no se reevalúan asignaciones previas.
+     * Si ningún camión puede cargarlo, el paquete queda sin asignar.
+     * El algoritmo busca construir una solución rápidamente sin explorar alternativas ni realizar retrocesos.
      */
 
     public Solucion resolver(ArrayList<Paquete> paquetes, ArrayList<Camion> camiones) {
@@ -39,7 +39,8 @@ public class Greedy {
 
                     cargado = true;
 
-                    break;
+                    break;// se puede incluir el break para cortar antes??
+
                 }
             }
 
@@ -48,11 +49,12 @@ public class Greedy {
             }
         }
 
-            solucion.sumarSolucionEvaluada();
-            solucion.copiarDesde(estado);
+        solucion.sumarSolucionEvaluada();
+        solucion.copiarDesde(estado);
 
-            return solucion;
+        return solucion;
 
 
-        }}
+    }
+}
 

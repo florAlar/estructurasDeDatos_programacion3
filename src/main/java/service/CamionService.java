@@ -38,16 +38,6 @@ public class CamionService {
         return camionRepo.existe(id);
     }
 
-    /* Metodos del servicio */
-
-
-    public Double getCargaActual(Camion camion){
-        return null;
-    }
-
-    public boolean tienePaqueteAsignado(Paquete paquete){
-        return true;
-    }
 
     // algoritmos
 

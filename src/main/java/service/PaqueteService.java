@@ -79,28 +79,6 @@ public class PaqueteService {
         return paquetesFiltrados;
     }
 
-    public ArrayList<Paquete> getPaquetesOrdenados(CriterioOrden criterio) {
 
-        ArrayList<Paquete> copia = paqueteRepo.obtenerTodos();
-
-        switch (criterio) {
-
-            case PESO:
-                copia.sort(
-                        Comparator.comparingDouble(Paquete::getPeso)
-                                .reversed()
-                );
-                break;
-
-            case URGENCIA:
-                copia.sort(
-                        Comparator.comparingInt(Paquete::getUrgencia)
-                                .reversed()
-                );
-                break;
-        }
-
-        return copia;
-    }
 }
 

@@ -17,7 +17,7 @@ public class Solucion {
         this.algoritmo = algoritmo;
         cargas = new HashMap<>();
         pesoNoAsignado = Double.MAX_VALUE; //peso en infinito;
-        iteraciones = 0;
+        iteraciones = 0; //tiempo computacional.
         solucionesEvaluadas = 0;
     }
 
