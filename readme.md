@@ -192,6 +192,3 @@ Este trabajo permite aplicar conceptos fundamentales de:
 
 ---
 
-## Autor
-
-Trabajo práctico desarrollado con fines académicos para el estudio y comparación de técnicas algorítmicas aplicadas a problemas de logística y asignación de recursos.
