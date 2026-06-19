@@ -9,10 +9,14 @@ public class Service {
     private CamionService camionService;
     private PaqueteService paqueteService;
 
-    /*  Complejidad temporal: O(n)
+    /*
+        Complejidad temporal: O(n)
+
         El constructor inicializa ambos servicios.
         Cada servicio carga los datos desde archivos CSV
-        y construye sus estructuras internas. */
+        y construye sus estructuras internas.
+
+    */
 
     public Service(String pathCamiones, String pathPaquetes) {
         //System.out.println("**Servicios Creados**");
@@ -24,8 +28,13 @@ public class Service {
 
     }
 
-    /*  Complejidad temporal: O(1) promedio.
-        La búsqueda se realiza mediante HashMap utilizando el código del paquete como clave. */
+   /*
+       Complejidad temporal: O(1) promedio.
+
+       La búsqueda se realiza mediante HashMap
+       utilizando el código del paquete como clave.
+
+    */
 
     public Paquete servicio1(String codigoPaquete) {
 
@@ -49,12 +58,15 @@ public class Service {
 
     }
 
-    /*  Complejidad temporal de busqueda en array: O(n).
-        servicios 2 y 3 utilizan el mismo recorrido secuencial de la colección ordenada
-        filtrando los paquetes que cumplan la condición solicitada.
-        el array se encuentra ordenado por collection.sort O(n.logN) por orden de urgencia de camion de manera tal que reduzca el tiempo de eejccucion
-        para la busqueda por rango de urgencia.
-     */
+    /*
+        Complejidad temporal de búsqueda para servicio 2 y 3: O(n)
+
+        El arreglo se encuentra ordenado mediante
+        Collections.sort() con complejidad O(n log n),
+        por criterio de urgencia de manera tal que reduzca el tiempo
+        de ejecución para las búsquedas por rango del servicio 3.
+
+      */
 
     public ArrayList<Paquete> servicio2(boolean contiene) {
 
@@ -86,7 +98,15 @@ public class Service {
         return paquetes;
     }
 
-    // Ejecuta la resolución utilizando Backtracking. sera O(C^P) camiones elevado a la cantidad de paquetes
+    /*
+        Complejidad temporal: O(C^P)
+
+        Ejecuta la resolución utilizando Backtracking,
+        donde C representa la cantidad de camiones
+        y P la cantidad de paquetes.
+
+      */
+
 
     public Solucion servicio4() {
 
@@ -96,7 +116,11 @@ public class Service {
         return solucionBT;
     }
 
-    // Ejecuta la resolución utilizando Greedy. O(n^2)
+    /*
+        Complejidad temporal: O(n²)
+
+        Ejecuta la resolución utilizando Greedy.
+    */
 
     public Solucion servicio5() {
 
@@ -114,10 +138,19 @@ public class Service {
 
         System.out.println("\n");
 
-        // Cada algoritmo intenta resolver el problema de manera diferente.
-        // Backtracking mide estados del espacio de búsqueda explorados,
-        // mientras que Greedy mide candidatos evaluados para construir una única solución.
-        // la solucion evaluada por greedy es solo 1, que se contruye tomando la decision localmente optima en cada paso.
+        /*
+            Cada algoritmo intenta resolver el problema
+            de manera diferente.
+
+            Backtracking mide estados del espacio de búsqueda
+            explorados, mientras que Greedy mide candidatos
+            evaluados para construir una única solución.
+
+            La solución evaluada por Greedy es solamente una,
+            construida tomando la decisión localmente óptima
+            en cada paso.
+
+         */
 
         System.out.println(
                 "Backtracking generó "
@@ -140,10 +173,21 @@ public class Service {
 
         System.out.println("\n");
 
-        // Evaluamos la calidad de la solucion respecto del objetivo en este caso fué minimizar el peso total de los paquetes que quedaron sin cargar.
-        // bajo esta optica, la solucion que obtenga el menor peso sin cargar será la mejor.
-        // No implica que sea el algoritmo mas eficiente para resolverlo.
-        // debemos evaluar si queremos precision o aproximacion vs. costo computacional.
+        /*
+            Evaluamos la calidad de la solución respecto
+            del objetivo del problema: minimizar el peso
+            total de los paquetes que quedaron sin cargar.
+
+            Bajo esta óptica, la solución que obtenga
+            el menor peso sin asignar será considerada
+            la mejor.
+
+            Esto no implica que sea el algoritmo más eficiente
+            para resolver el problema. Debe evaluarse si se
+            prioriza precisión o aproximación frente al costo
+            computacional.
+
+        */
 
         System.out.println( "Para este escenario planteado con " + camionService.cantidadCamiones()
                 + " camiones y " + paqueteService.cantidadPaquetes() + " paquetes: " );
@@ -154,7 +198,7 @@ public class Service {
             System.out.println( "Backtracking obtuvo mejor solucion." );
 
         } else if (backtracking.getPesoNoAsignado() > greedy.getPesoNoAsignado()) {
-
+            //teóricamente nunca debería ejecutarse.
             System.out.println("Greedy obtuvo mejor solucion.");
 
         } else {
@@ -173,7 +217,14 @@ public class Service {
                 }
             }
 
-                // no va a ocurrir que : greedy.getIteraciones() > backtracking.getIteraciones(); por la complejidad computacional de cada algoritmo.
+            /*
+                No debería ocurrir que:
+
+                greedy.getIteraciones() > backtracking.getIteraciones()
+
+                debido a la diferencia de complejidad computacional
+                entre ambos algoritmos.
+             */
         }
 
         System.out.println("Dado que el peso no asignado BT fue de " + backtracking.getPesoNoAsignado());
