@@ -23,10 +23,8 @@ import java.util.HashMap;
 public class PaquetesRepository
         implements Repository<Paquete, String> {
 
-    private ArrayList<Paquete> paquetes; // arrayListOrdenadoPorPeso
+    private ArrayList<Paquete> paquetes; // arrayListOrdenado por urgencia ascendente
     private HashMap<String, Paquete> paquetesPorCodigo;
-    //buscar si conviene un arbol binario de busqueda balanceado para ejercicio 3)
-    // busqueda por rango de urgencia. con esto bajariamos a O(logN+K)
 
     public PaquetesRepository(ArrayList<Paquete> paquetes) {
         setPaquetes(paquetes); // O(n).
@@ -46,7 +44,9 @@ public class PaquetesRepository
         }
 
         System.out.println(paquetes.size() + " paquetes cargados en repositorio." + " Complejidad asociada: O(n)");
-        System.out.println(paquetes);
+
+        // Arreglo ordenado:
+        // System.out.println(paquetes);
 
 
     }

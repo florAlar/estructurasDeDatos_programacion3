@@ -15,8 +15,8 @@ public class Service {
         y construye sus estructuras internas. */
 
     public Service(String pathCamiones, String pathPaquetes) {
-        System.out.println("------Servicios Creados------");
-
+        //System.out.println("**Servicios Creados**");
+        System.out.println("\n");
         this.camionService = new CamionService(pathCamiones);
         this.paqueteService = new PaqueteService(pathPaquetes);
 
@@ -29,19 +29,17 @@ public class Service {
 
     public Paquete servicio1(String codigoPaquete) {
 
-        System.out.println("------Ejercicio 1------");
+        System.out.println("------Servicio 1------");
 
         Paquete paquete = paqueteService.getPaquete(codigoPaquete);
 
         if (paquete != null) {
 
-            System.out.println("El paquete encontrado es:" +  paquete.toString());
+            System.out.println("\nEl paquete encontrado es:" +  paquete.toString());
 
-            System.out.println("\n");
-
-            return paquete;
         }else{
-            System.out.println("El paquete no existe");
+
+            System.out.println("\nEl paquete no existe");
         }
 
         System.out.println("\n");
@@ -55,22 +53,19 @@ public class Service {
         servicios 2 y 3 utilizan el mismo recorrido secuencial de la colección ordenada
         filtrando los paquetes que cumplan la condición solicitada.
         el array se encuentra ordenado por collection.sort O(n.logN) por orden de urgencia de camion de manera tal que reduzca el tiempo de eejccucion
-        para la vbusqueda por rango de urgencia.
-        para el tamaño de la entrada del problema no es necesario duplicar nuevamente la memoria para almacenar
-        los paquetes en un hasmap con criterio de contiene o no contiene alimentos.
-
+        para la busqueda por rango de urgencia.
      */
 
     public ArrayList<Paquete> servicio2(boolean contiene) {
 
-        System.out.println("------Ejercicio 2------");
+        System.out.println("------Servicio 2------");
 
         ArrayList<Paquete> paquetes = paqueteService.getPaquetesConAlimentos(contiene);
 
         if (!paquetes.isEmpty()) {
-            System.out.println("Se encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
+            System.out.println("\nSe encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
         }else {
-            System.out.println("no se encontraron paquetes que coincidan con el criterio de búsqueda");
+            System.out.println("\nNo se encontraron paquetes que coincidan con el criterio de búsqueda");
         }
         System.out.println("\n");
         return paquetes;
@@ -78,14 +73,14 @@ public class Service {
 
     public ArrayList<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
 
-        System.out.println("------Ejercicio 1------");
+        System.out.println("------Servicio 3------");
 
         ArrayList<Paquete> paquetes = paqueteService.getPaquetesEnRango( urgenciaMinima, urgenciaMaxima);
 
         if (!paquetes.isEmpty()) {
-            System.out.println("Se encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
+            System.out.println("\nSe encontró que los siguientes paquetes cumplen con lo solicitado:" + paquetes.toString());
         }else {
-            System.out.println("No hay paquetes con urgencias solicitada");
+            System.out.println("\nNo hay paquetes con urgencias solicitada");
         }
         System.out.println("\n");
         return paquetes;
@@ -119,28 +114,40 @@ public class Service {
 
         System.out.println("\n");
 
-        System.out.println("Peso no asignado BT: " + backtracking.getPesoNoAsignado());
+        // Cada algoritmo intenta resolver el problema de manera diferente.
+        // Backtracking mide estados del espacio de búsqueda explorados,
+        // mientras que Greedy mide candidatos evaluados para construir una única solución.
+        // la solucion evaluada por greedy es solo 1, que se contruye tomando la decision localmente optima en cada paso.
 
-        System.out.println("Peso no asignado Greedy: " + greedy.getPesoNoAsignado());
+        System.out.println(
+                "Backtracking generó "
+                        + backtracking.getIteraciones()
+                        + " estados intermedios del espacio de búsqueda y evaluó "
+                        + backtracking.solucionesEvaluadas()
+                        + " soluciones candidatas antes de seleccionar la mejor."
+        );
+
+        System.out.println(
+                "Greedy consideró "
+                        + greedy.getIteraciones()
+                        + " candidatos durante la construcción de una única solución, "
+                        + "que constituye el resultado final de la estrategia.\n"
+        );
+
+        System.out.println(
+                "Esto refleja la diferencia entre ambas técnicas: \n Backtracking explora todas las alternativas válidas para encontrar la mejor solución,\n mientras que Greedy construye una única solución tomando decisiones localmente óptimas en cada paso."
+        );
 
         System.out.println("\n");
 
-        System.out.println( "Soluciones evaluadas por Backtracking: " + backtracking.solucionesEvaluadas());
+        // Evaluamos la calidad de la solucion respecto del objetivo en este caso fué minimizar el peso total de los paquetes que quedaron sin cargar.
+        // bajo esta optica, la solucion que obtenga el menor peso sin cargar será la mejor.
+        // No implica que sea el algoritmo mas eficiente para resolverlo.
+        // debemos evaluar si queremos precision o aproximacion vs. costo computacional.
 
-        System.out.println("Solucion evaluada por greedy solo 1 , la mejor local. demostrado por: " + greedy.solucionesEvaluadas());
+        System.out.println( "Para este escenario planteado con " + camionService.cantidadCamiones()
+                + " camiones y " + paqueteService.cantidadPaquetes() + " paquetes: " );
 
-        System.out.println("\n");
-
-        System.out.println( "Iteraciones BT: " + backtracking.getIteraciones());
-
-        System.out.println("Iteraciones Greedy: "+ greedy.getIteraciones() );
-
-        System.out.println("\n");
-
-        //evaluamos la calidad de la solucion respecto del objetivo en este caso fué minimizar el peso total de los paquetes que quedaron sin cargar.
-        //bajo esta optica, la solucion que obtenga el menor peso sin cargar será la mejor.
-        //no implica que sea el algoritmo mas eficiente para resolverlo.
-        //debemos evaluar si queremos precision o aproximacion vs. costo computacional.
 
         if (backtracking.getPesoNoAsignado() < greedy.getPesoNoAsignado()) {
 
@@ -158,25 +165,20 @@ public class Service {
                     greedy.getPesoNoAsignado() == 0) {
 
                 if (greedy.getIteraciones() < backtracking.getIteraciones()) {
-
                     System.out.println(
                             "Ambos algoritmos encontraron una solución óptima (0 kg sin asignar). "
                                     + "Sin embargo, Greedy presentó un menor costo computacional al "
                                     + "requerir menos iteraciones que Backtracking."
                     );
                 }
-
-                // no va a ocurrir que : greedy.getIteraciones() > backtracking.getIteraciones(); por la complejidad computacional de cada algoritmo.
             }
 
+                // no va a ocurrir que : greedy.getIteraciones() > backtracking.getIteraciones(); por la complejidad computacional de cada algoritmo.
         }
 
-        System.out.println(
-                "\n _______________________\n" +
-                "|prog 3 :D              |h_ __\n" +
-                "|                       ||=|##L_\n" +
-                "|________________.====._||_|__._]\n" +
-                " `(_)(_)`       `(_)(_)\"\"\"=\"=(_)");
+        System.out.println("Dado que el peso no asignado BT fue de " + backtracking.getPesoNoAsignado());
 
+        System.out.println("mientras que el peso no asignado por Greedy fue: " + greedy.getPesoNoAsignado());
     }
+
 }

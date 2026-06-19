@@ -24,7 +24,14 @@ public class PaqueteService {
     /* metodos de repo */
 
     public Paquete getPaquete(String codigo){
-        return paqueteRepo.buscarPorIdentificador(codigo);
+        System.out.println("Complejidad computacional asociada a busqueda en hashMap por clave: O(1).- ");
+
+        if (paqueteRepo.existe(codigo)){
+            return paqueteRepo.buscarPorIdentificador(codigo);
+        }else{
+            return null;
+        }
+
     }
 
     public int cantidadPaquetes(){
@@ -52,7 +59,7 @@ public class PaqueteService {
             }
         }
 
-        System.out.println("Complejidad computacional asociada a busqueda en array: O(n). - total de paquetes con alimentos encontrados: " + paquetesFiltrados.size()+".-");
+        System.out.println("Complejidad computacional asociada a busqueda en array: O(n), total de paquetes con alimentos encontrados: " + paquetesFiltrados.size()+".-");
 
         return paquetesFiltrados;
 
@@ -74,7 +81,7 @@ public class PaqueteService {
             }
         }
 
-        System.out.println( "Complejidad computacional asociada a la búsqueda secuencial: O(n). " + "Paquetes encontrados con urgencia entre " + min + " y " + max + ": " + paquetesFiltrados.size() + ".-");
+        System.out.println( "Complejidad computacional asociada a la búsqueda en array: O(n),(ordenado una unica vez). total de paquetes encontrados con urgencia entre " + min + " y " + max + ": " + paquetesFiltrados.size() + ".-");
 
         return paquetesFiltrados;
     }
