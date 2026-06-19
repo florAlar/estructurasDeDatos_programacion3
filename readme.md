@@ -61,7 +61,7 @@ Se implementan tres servicios sobre la colección de paquetes:
 Búsqueda de un paquete a partir de su código identificador.
 
 ```java
-Paquete servicio1(String codigoPaquete)
+Paquete servicio1(String codigoPaquete){}
 ```
 
 ### Servicio 2
@@ -69,7 +69,7 @@ Paquete servicio1(String codigoPaquete)
 Obtención de todos los paquetes que contienen o no contienen alimentos.
 
 ```java
-List<Paquete> servicio2(boolean contieneAlimentos)
+List<Paquete> servicio2(boolean contieneAlimentos){}
 ```
 
 ### Servicio 3
@@ -77,7 +77,7 @@ List<Paquete> servicio2(boolean contieneAlimentos)
 Obtención de todos los paquetes cuyo nivel de urgencia se encuentre dentro de un rango determinado.
 
 ```java
-List<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima)
+List<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima){}
 ```
 
 Para cada servicio se analizaron e informaron las complejidades temporales, justificando las estructuras de datos seleccionadas.

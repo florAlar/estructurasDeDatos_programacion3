@@ -13,7 +13,7 @@ import java.util.HashMap;
     //ArrayList:
        utilizado para recorridos completos y acceso posicional O(1).
        Aunque el recorrido total sea O(n), resulta eficiente por trabajar sobre memoria contigua.
-       se devuelven los array ordenados por determinada condicion segun el metodo que lo llame.
+
 
     // HashMap:
        utilizado para búsquedas directas por código.

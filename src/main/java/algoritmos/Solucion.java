@@ -26,11 +26,10 @@ public class Solucion {
     }
 
     public void copiarDesde(Estado estado) {
-        //O(n) - copia defensiva.
 
         cargas = new HashMap<>();
 
-        for (Camion camion : estado.getCargas().keySet()) {
+        for (Camion camion : estado.getCargas().keySet()) { //O(n)
             cargas.put( camion, new ArrayList<>(estado.getCargas().get(camion))
             );
         }

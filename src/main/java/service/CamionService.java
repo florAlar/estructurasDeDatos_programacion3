@@ -20,7 +20,7 @@ public class CamionService {
         this.camionRepo = camionesLoader.almacenarEnRepo();
     }
 
-    /* Metodos del repo */
+    /* metodos de repo */
 
     public Camion getCamion(Integer id){
         return camionRepo.buscarPorIdentificador(id);
