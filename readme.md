@@ -100,51 +100,55 @@ El problema consiste en asignar todos los paquetes posibles a los camiones dispo
 ### Backtracking
 
 Explora sistemáticamente el espacio de soluciones posibles generando distintos estados y descartando aquellos que violan las restricciones. Permite obtener la mejor solución encontrada respecto al peso no asignado.
-espacio de busqueda:
+
+#### Espacio de búsqueda
 
 Cada nodo representa un estado parcial de la asignación.
+
 Las ramas representan las decisiones posibles para cada paquete:
+
 - Asignarlo a un camión válido.
 - Dejarlo sin asignar.
 
 Las hojas corresponden a soluciones completas evaluadas por el algoritmo.
 
+```mermaid
 graph TD
 
-A[Estado Inicial]
+A["Estado Inicial"]
 
-A --> B[P001 → Camión A]
-A --> C[P001 → Camión B]
-A --> D[P001 sin asignar]
+A --> B["P001 → Camión A"]
+A --> C["P001 → Camión B"]
+A --> D["P001 sin asignar"]
 
-B --> E[P002 → Camión A]
-B --> F[P002 → Camión B]
-B --> G[P002 sin asignar]
+B --> E["P002 → Camión A"]
+B --> F["P002 → Camión B"]
+B --> G["P002 sin asignar"]
 
-C --> H[P002 → Camión A]
-C --> I[P002 → Camión B]
-C --> J[P002 sin asignar]
+C --> H["P002 → Camión A"]
+C --> I["P002 → Camión B"]
+C --> J["P002 sin asignar"]
 
-D --> K[P002 → Camión A]
-D --> L[P002 → Camión B]
-D --> M[P002 sin asignar]
+D --> K["P002 → Camión A"]
+D --> L["P002 → Camión B"]
+D --> M["P002 sin asignar"]
 
-E --> N[Solución]
-F --> O[Solución]
-G --> P[Solución]
+E --> N["Solución"]
+F --> O["Solución"]
+G --> P["Solución"]
 
-H --> Q[Solución]
-I --> R[Solución]
-J --> S[Solución]
+H --> Q["Solución"]
+I --> R["Solución"]
+J --> S["Solución"]
 
-K --> T[Solución]
-L --> U[Solución]
-M --> V[Solución]
+K --> T["Solución"]
+L --> U["Solución"]
+M --> V["Solución"]
+```
 
 **Métrica utilizada:**
 
-* Cantidad de estados generados.
-
+- Cantidad de estados generados.
 ### Greedy
 
 Construye una solución de manera incremental tomando decisiones locales según un criterio de selección previamente definido.
