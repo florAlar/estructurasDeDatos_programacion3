@@ -23,7 +23,7 @@ public class Greedy {
 
         Solucion solucion = new Solucion("Greedy");
 
-        Estado estado = new Estado(camiones);
+        Estado estado = new Estado(camiones, paquetes);
 
         for (Paquete paquete : paquetes) {
 

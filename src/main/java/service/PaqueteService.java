@@ -42,28 +42,18 @@ public class PaqueteService {
         return paqueteRepo.obtenerTodos();
     }
 
-    public boolean existePaquete(String codigo){
-        return paqueteRepo.existe(codigo);
-    }
 
     /* Metodos del servicio */
 
     public ArrayList<Paquete> getPaquetesConAlimentos(boolean conAlimento){
 
-        ArrayList<Paquete> paquetes = paqueteRepo.obtenerTodos();
-        ArrayList<Paquete> paquetesFiltrados = new ArrayList<>();
+        ArrayList<Paquete> paquetesFiltrados = paqueteRepo.obtenerConAlimentos(conAlimento);
 
-        for (Paquete paq : paquetes){
-            if(paq.contieneAlimentos() == conAlimento){
-                paquetesFiltrados.add(paq);
-            }
-        }
-
-        System.out.println("Complejidad computacional asociada a busqueda en array: O(n), total de paquetes con alimentos encontrados: " + paquetesFiltrados.size()+".-");
+        System.out.println("Complejidad computacional asociada a busqueda en Hashmap: O(1) por clave, total de paquetes con alimentos encontrados: " + paquetesFiltrados.size()+".-");
 
         return paquetesFiltrados;
 
-        //O(n) -> si o si recorro todos los elementos para filtrarlos.
+        //O(1) -> Ahora la busqueda es por clave en una estructura Hashmap.
 
     }
 

@@ -24,7 +24,7 @@ public class Backtracking {
 
         mejorSolucion = new Solucion("Backtracking");
 
-        Estado estado = new Estado(camiones);
+        Estado estado = new Estado(camiones, paquetes);
 
         backtracking(camiones, paquetes, 0, estado);
 
@@ -45,12 +45,17 @@ public class Backtracking {
             return;
         }
 
+        // PODA
+        if (estado.pesoFaltante() >= mejorSolucion.getPesoNoAsignado()) {
+            return;
+        }
+
         Paquete actual = paquetes.get(index);
+        estado.decidirPaquete(actual);
 
         for (Camion camion : camiones) {
 
             if (estado.puedeCargar(camion, actual)) {
-
                 estado.cargar(camion, actual);
                 backtracking(camiones, paquetes, index + 1, estado);
                 estado.descargar(camion, actual);
@@ -60,5 +65,7 @@ public class Backtracking {
         estado.sumarPesoNoAsignado(actual);
         backtracking(camiones, paquetes,index + 1, estado);
         estado.restarPesoNoAsignado(actual);
+
+        estado.revertirDecisionPaquete(actual);
     }
 }

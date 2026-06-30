@@ -28,7 +28,7 @@ public class CamionRepository implements Repository<Camion,Integer> {
 
         }
 
-        System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n)" );
+        System.out.println(camiones.size() + " camiones cargados en repositorio: Complejidad Asociada O(n) donde n representa la cantidad de elementos de la entrada." );
     }
 
     @Override

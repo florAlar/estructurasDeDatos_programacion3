@@ -10,11 +10,22 @@ public class Service {
     private PaqueteService paqueteService;
 
     /*
-        Complejidad temporal: O(n)
+        Complejidad temporal: O(c) + O (p. log p) donde:
+
+             c = cantidad de camiones
+             p = cantidad de paquetes
+
 
         El constructor inicializa ambos servicios.
         Cada servicio carga los datos desde archivos CSV
         y construye sus estructuras internas.
+
+        La creación del repositorio de camiones requiere un único recorrido
+        sobre los datos de entrada O(c), mientras que el repositorio de
+        paquetes realiza un ordenamiento inicial O(p log p) y luego una
+        única pasada para construir sus índices auxiliares O(p).
+
+         O(p) + O(p log p) = O(p log p);
 
     */
 
@@ -54,7 +65,6 @@ public class Service {
         System.out.println("\n");
 
         return paquete;
-
 
     }
 

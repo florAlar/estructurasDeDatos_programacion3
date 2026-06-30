@@ -8,24 +8,32 @@ public class Main {
     public static void main(String[] args) {
 
     /*
-      Para probar distintos escenarios, modificar la ruta de los archivos CSV
-      utilizados al instanciar el Service.
+     Los archivos csv se modificaron según los casos de prueba propuestos por la cátedra
 
       Archivos de paquetes:
-      - paquetes.csv    : 12 paquetes;
-      - paquetesOP2.csv : 10 paquetes;
-      - paquetesOP3.csv : 20 paquetes;
+      - paquetesT1.csv : 6 paquetes;
+      - paquetesT2.csv : 3 paquetes;
+      - paquetesT3.csv : 5 paquetes;
+      - paquetesT4.csv : 5 paquetes;
+      - paquetesT5.csv : 5 paquetes;
+
 
       Archivos de camiones:
-      - camiones.csv    : 3 camiones;
-      - camionesOP2.csv : 4 camiones;
-      - camionesOP3.csv : 8 camiones;
+      - camionesT1.csv : 3 camiones;
+      - camionesT2.csv : 3 camiones;
+      - camionesT3.csv : 2 camiones;
+      - camionesT4.csv : 2 camiones;
+      - camionesT5.csv : 2 camiones;
 
     */
 
-        Service servicio = new Service("camiones.csv", "paquetes.csv");
+        Service servicio = new Service("camionesT1.csv", "paquetesT1.csv");
 
-        // Service servicio = new Service("camionesOP2.csv", "paquetesOP3.csv");
+
+        // Service servicio = new Service("camionesT2.csv", "paquetesT2.csv");
+        // Service servicio = new Service("camionesT3.csv", "paquetesT3.csv");
+        // Service servicio = new Service("camionesT4.csv", "paquetesT4.csv");
+        // Service servicio = new Service("camionesT5.csv", "paquetesT5.csv");
 
         Paquete respuesta1 = servicio.servicio1("P005");
 
